@@ -4,7 +4,59 @@ var path = require('path');
 
 var app = express();
 app.use(morgan('combined'));
+var contents={
+	title:"article-one,Riya",
+        date:"Oct 4",
+	heading:"article-one",
+	body:` <p>
+       This is my first app html.I am editig it locally.  This is my first app html.  This is my first app html.  This is my first app html.  
+      This is my first app html.  
+    </p>
+    
+     <p>
+      This is my first app html.  This is my first app html.  This is my first app html.  This is my first app html.  
+      This is my first app html.  
+    </p>
+    
+     <p>
+      This is my first app html.  This is my first app html.  This is my first app html.  This is my first app html.  
+      This is my first app html. This is my first app html.  
+      This is my first app html 
+    </p>`
+};
+var html_template=`<html>
+<head>
+    <title>Article one</title>
+<link href="/ui/style.css" rel="stylesheet" />
+</head>
 
+<body>
+  <div class="container">  
+    <div>
+        <a href="/">home</a>
+    </div>
+    <hr/>
+    <h3>article one</h3>
+    <div>sep 23</div>
+    <hr/>
+    <p>
+       This is my first app html.I am editig it locally.  This is my first app html.  This is my first app html.  This is my first app html.  
+      This is my first app html.  
+    </p>
+    
+     <p>
+      This is my first app html.  This is my first app html.  This is my first app html.  This is my first app html.  
+      This is my first app html.  
+    </p>
+    
+     <p>
+      This is my first app html.  This is my first app html.  This is my first app html.  This is my first app html.  
+      This is my first app html. This is my first app html.  
+      This is my first app html 
+    </p>
+  </div>   
+</body>
+ </html>`
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });

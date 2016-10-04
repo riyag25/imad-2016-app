@@ -5,6 +5,7 @@ var path = require('path');
 var app = express();
 app.use(morgan('combined'));
 var contents={
+    article_one:{
 	title:"article-one,Riya",
         date:"Oct 4",
 	heading:"article-one",
@@ -22,41 +23,48 @@ var contents={
       This is my first app html.  This is my first app html.  This is my first app html.  This is my first app html.  
       This is my first app html. This is my first app html.  
       This is my first app html 
-    </p>`
-};
-var html_template=`<html>
-<head>
-    <title>Article one</title>
-<link href="/ui/style.css" rel="stylesheet" />
-</head>
-
-<body>
-  <div class="container">  
-    <div>
-        <a href="/">home</a>
-    </div>
-    <hr/>
-    <h3>article one</h3>
-    <div>sep 23</div>
-    <hr/>
-    <p>
+    </p>`},
+    article_two:{	title:"article-two,Riya",
+        date:"Oct 5",
+	heading:"article-two",
+	body:` <p>
        This is my first app html.I am editig it locally.  This is my first app html.  This is my first app html.  This is my first app html.  
       This is my first app html.  
-    </p>
-    
-     <p>
-      This is my first app html.  This is my first app html.  This is my first app html.  This is my first app html.  
+        </p>`},
+    article_three:{title:"article-three,Riya",
+        date:"Oct 6",
+	heading:"article-three",
+	body:` <p>
+       This is my first app html.I am editig it locally.  This is my first app html.  This is my first app html.  This is my first app html.  
       This is my first app html.  
-    </p>
+        </p>`}
+};
+function createTemplate(data){
+    var title=data.title;
+    var heading=data.heading;
+    var date=data.date;
+    var body=data.body;
+    var html_template=`<html>
+    <head>
+        <title>${title}</title>
+    <link href="/ui/style.css" rel="stylesheet" />
+    </head>
     
-     <p>
-      This is my first app html.  This is my first app html.  This is my first app html.  This is my first app html.  
-      This is my first app html. This is my first app html.  
-      This is my first app html 
-    </p>
-  </div>   
-</body>
- </html>`
+    <body>
+      <div class="container">  
+        <div>
+            <a href="/">home</a>
+        </div>
+        <hr/>
+        <h3>${heading}</h3>
+        <div>${date}</div>
+        <hr/>
+        ${body}
+      </div>   
+    </body>
+     </html>`;
+    return htmlTemplate;
+}
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
@@ -70,15 +78,15 @@ app.get('/ui/madi.png', function (req, res) {
 });
 
 app.get('/article-one', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'article-one.html'));
+  res(path.join(createTemplate(article_one)));
 });
 
 app.get('/article-two', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
+   res(path.join(createTemplate(article_two)));
 });
 
 app.get('/article-three', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
+   res(path.join(createTemplate(article_three)));
 });
 
 var port = 8080; // Use 8080 for local development because you might already have apache running on 80
